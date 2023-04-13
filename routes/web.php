@@ -34,5 +34,17 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::put('/category/{category}', 'update');
     });
 
+
+    //Books Routes
+    Route::controller(App\Http\Controllers\Admin\BookController::class)->group(function () {
+        Route::get('/books', 'index');
+        Route::get('/books/create', 'create');
+        Route::post('/books', 'store');
+        Route::get('/books/{book}/edit', 'edit');
+        Route::put('/books/{book}', 'update');
+        Route::get('books/{book_id}/delete', 'destroy');
+        Route::get('book-image/{book_image_id}/delete', 'destroyImage');
+    });
+
     Route::get('/publishers', App\Http\Livewire\Admin\Publisher\Index::class);
 });
