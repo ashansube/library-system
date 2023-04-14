@@ -156,7 +156,7 @@
                                     <div class="row">
                                         @foreach ($book->bookImages as $image)
                                             <div class="col-md-2">
-                                                <img src="{{ asset($image->image) }}" style="width: 80px; height:80px;" class="me-4 border" alt="Book Image" />
+                                                <img src="{{ asset($image->image) }}" style="width: 80px; height:80px;" class="me-4 border rounded img-thumbnail" alt="Book Image" />
                                                 <a href="{{ url('admin/book-image/'.$image->id.'/delete') }}" class="mt-2 mb-4 d-block text-decoration-none text-danger">Remove</a>
                                             </div>
                                         @endforeach

@@ -68,7 +68,7 @@
             </div>
         </li>
         <li class="nav-item {{ Request::is('admin/sliders') ? 'active' : '' }}">
-            <a class="nav-link" href="documentation/documentation.html">
+            <a class="nav-link" href="{{ url('admin/sliders') }}">
                 <i class="mdi mdi-view-carousel menu-icon"></i>
                 <span class="menu-title">Home Slider</span>
             </a>

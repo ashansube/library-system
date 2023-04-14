@@ -14,16 +14,30 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
+
+
+Route::get('/', [App\Http\Controllers\Frontend\FrontendController::class, 'index']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
+
+    //Home Slider Routes
+    Route::controller(App\Http\Controllers\Admin\SliderController::class)->group(function () {
+        Route::get('/sliders', 'index');
+        Route::get('/sliders/create', 'create');
+        Route::post('/sliders/create', 'store');
+        Route::get('/sliders/{slider}/edit', 'edit');
+        Route::put('/sliders/{slider}', 'update');
+        Route::get('sliders/{slider}/delete', 'destroy');
+    });
+
 
     //Category Routes
     Route::controller(App\Http\Controllers\Admin\CategoryController::class)->group(function () {
