@@ -62,5 +62,9 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('book-image/{book_image_id}/delete', 'destroyImage');
     });
 
+    //Publishers Routes
     Route::get('/publishers', App\Http\Livewire\Admin\Publisher\Index::class);
+
+    //Users Routes
+    Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index']);
 });
