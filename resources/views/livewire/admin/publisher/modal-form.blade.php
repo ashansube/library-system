@@ -11,7 +11,19 @@
             <form wire:submit.prevent="storePublisher">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="mb-2">Publisher Name</label>
+                        <label class="mb-3">Select Category</label>
+                        <select wire:model.defer="category_id" required class="form-control form-select text-dark">
+                            <option value="">Select Categeory</option>
+                            @foreach ($categories as $cateItem)
+                                <option value="{{ $cateItem->id }}">{{ $cateItem->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="mt-2 mb-2">Publisher Name</label>
                         <input type="text" wire:model.defer="name" class="form-control">
                         @error('name')
                             <small class="text-danger">{{ $message }}</small>
@@ -61,6 +73,18 @@
             <div wire:loading.remove>
                 <form wire:submit.prevent="updatePublisher">
                     <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="mb-3">Select Category</label>
+                            <select wire:model.defer="category_id" required class="form-control form-select text-dark">
+                                <option value="">Select Categeory</option>
+                                @foreach ($categories as $cateItem)
+                                    <option value="{{ $cateItem->id }}">{{ $cateItem->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                            <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
                         <div class="mb-3">
                             <label class="mb-2">Publisher Name</label>
                             <input type="text" wire:model.defer="name" class="form-control">

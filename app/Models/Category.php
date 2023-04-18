@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Book;
+use App\Models\Publisher;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -26,5 +27,10 @@ class Category extends Model
     public function books()
     {
         return $this->hasMany(Book::class, 'category_id', 'id');
+    }
+
+    public function publishers()
+    {
+        return $this->hasMany(Publisher::class, 'category_id', 'id')->where('status', '0');
     }
 }

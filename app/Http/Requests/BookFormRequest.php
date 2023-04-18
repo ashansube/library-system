@@ -30,6 +30,10 @@ class BookFormRequest extends FormRequest
                 'required',
                 'string'
             ],
+            'author' => [
+                'required',
+                'string'
+            ],
             'slug' => [
                 'required',
                 'string',

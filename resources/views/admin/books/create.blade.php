@@ -71,6 +71,10 @@
                                     <input type="text" name="name" class="form-control" />
                                 </div>
                                 <div class="mb-3">
+                                    <label class="mb-2">Book Author</label>
+                                    <input type="text" name="author" class="form-control" />
+                                </div>
+                                <div class="mb-3">
                                     <label class="mb-2">Book Slug</label>
                                     <input type="text" name="slug" class="form-control" />
                                 </div>

@@ -3,6 +3,9 @@
 
     <div class="row">
         <div class="col-md-12">
+            @if (session('message'))
+            <div class="alert alert-success">{{ session('message') }}</div>
+            @endif
             <div class="card">
                 <div class="card-header">
                     <h3>
@@ -18,6 +21,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
+                                <th>Category</th>
                                 <th>Slug</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -28,6 +32,13 @@
                             <tr>
                                 <td>{{ $publisher->id }}</td>
                                 <td>{{ $publisher->name }}</td>
+                                <td>
+                                    @if ($publisher->category)
+                                        {{ $publisher->category->name }}
+                                    @else
+                                        No Category
+                                    @endif
+                                </td>
                                 <td>{{ $publisher->slug }}</td>
                                 <td>{{ $publisher->status == '1' ? 'Hidden':'Visible'}}</td>
                                 <td>

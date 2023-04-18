@@ -26,8 +26,7 @@ class FrontendController extends Controller
         $category = Category::where('slug',$category_slug)->first();
         if($category) {
 
-            $books = $category->books()->get();
-            return view('frontend.collections.books.index', compact('books', 'category'));
+            return view('frontend.collections.books.index', compact('category'));
         }else{
             return redirect()->back();
         }

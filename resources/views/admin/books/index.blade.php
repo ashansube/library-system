@@ -21,6 +21,7 @@
                             <th>ID</th>
                             <th>Category</th>
                             <th>Book</th>
+                            <th>Author</th>
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Status</th>
@@ -39,6 +40,7 @@
                                     @endif
                                 </td>
                                 <td>{{ $book->name }}</td>
+                                <td>{{ $book->author }}</td>
                                 <td>{{ $book->selling_price }}</td>
                                 <td>{{ $book->quantity }}</td>
                                 <td>{{ $book->status == '1' ? 'Hidden' : 'Visible' }}</td>

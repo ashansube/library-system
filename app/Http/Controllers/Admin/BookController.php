@@ -36,6 +36,7 @@ class BookController extends Controller
         $book = $category->books()->create([
             'category_id' => $validatedData['category_id'],
             'name' => $validatedData['name'],
+            'author' => $validatedData['author'],
             'slug' => Str::slug($validatedData['slug']),
             'publisher' => $validatedData['publisher'],
             'small_description' => $validatedData['small_description'],
@@ -96,6 +97,7 @@ class BookController extends Controller
                 //'category_id' => $validatedData['category_id'],
                 'category_id' => $category->id,
                 'name' => $validatedData['name'],
+                'author' => $validatedData['author'],
                 'slug' => Str::slug($validatedData['slug']),
                 'publisher' => $validatedData['publisher'],
                 'small_description' => $validatedData['small_description'],

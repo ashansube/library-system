@@ -22,7 +22,7 @@
                     <h4 class="mb-4">{{ $category->name }}</h4>
                 </div>
 
-                <livewire:frontend.book.index :books="$books" :category="$category" />
+                <livewire:frontend.book.index :category="$category" />
             </div>
         </div>
     </div>

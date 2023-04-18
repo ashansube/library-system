@@ -74,6 +74,10 @@
                                     <input type="text" name="name" value="{{ $book->name }}" class="form-control" />
                                 </div>
                                 <div class="mb-3">
+                                    <label class="mb-2">Book Author</label>
+                                    <input type="text" name="author" value="{{ $book->author }}" class="form-control" />
+                                </div>
+                                <div class="mb-3">
                                     <label class="mb-2">Book Slug</label>
                                     <input type="text" name="slug" value="{{ $book->slug }}" class="form-control" />
                                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Publisher;
 
+use App\Models\Category;
 use App\Models\Publisher;
 use Livewire\Component;
 use Illuminate\Support\Str;
@@ -12,13 +13,14 @@ class Index extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    public $name, $slug, $status, $publisher_id;
+    public $name, $slug, $status, $publisher_id, $category_id;
 
     public function rules()
     {
         return [
             'name' => 'required|string',
             'slug' => 'required|string',
+            'category_id' => 'required|integer',
             'status' => 'nullable'
         ];
     }
@@ -29,6 +31,7 @@ class Index extends Component
         $this->slug = NULL;
         $this->status = NULL;
         $this->publisher_id = NULL;
+        $this->category_id = NULL;
     }
 
     public function storePublisher()
@@ -38,6 +41,7 @@ class Index extends Component
             'name' => $this->name,
             'slug' => Str::slug($this->slug),
             'status' => $this->status == true ? '1':'0',
+            'category_id' => $this->category_id
         ]);
         session()->flash('message', 'Publisher Added Successfully');
         $this->dispatchBrowserEvent('close-modal');
@@ -61,6 +65,8 @@ class Index extends Component
         $this->name = $publisher->name;
         $this->slug = $publisher->slug;
         $this->status = $publisher->status;
+        $this->category_id = $publisher->category_id;
+
     }
 
     public function updatePublisher()
@@ -70,6 +76,7 @@ class Index extends Component
             'name' => $this->name,
             'slug' => Str::slug($this->slug),
             'status' => $this->status == true ? '1':'0',
+            'category_id' => $this->category_id
         ]);
         session()->flash('message', 'Publisher Updated Successfully');
         $this->dispatchBrowserEvent('close-modal');
@@ -91,8 +98,9 @@ class Index extends Component
 
     public function render()
     {
+        $categories = Category::where('status', '0')->get();
         $publishers = Publisher::orderBy('id', 'DESC')->paginate(10);
-        return view('livewire.admin.publisher.index', ['publishers' => $publishers])
+        return view('livewire.admin.publisher.index', ['publishers' => $publishers, 'categories' => $categories])
                     ->extends('layouts.admin')
                     ->section('content');
     }
