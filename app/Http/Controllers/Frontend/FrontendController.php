@@ -31,4 +31,22 @@ class FrontendController extends Controller
             return redirect()->back();
         }
     }
+
+    public function bookView(string $category_slug, string $book_slug)
+    {
+        $category = Category::where('slug',$category_slug)->first();
+        if($category) {
+
+            $book = $category->books()->where('slug', $book_slug)->where('status', '0')->first();
+            if($book)
+            {
+                return view('frontend.collections.books.view', compact('book', 'category'));
+            }else{
+                return redirect()->back();
+            }
+
+        }else{
+            return redirect()->back();
+        }
+    }
 }

@@ -22,13 +22,13 @@
                     <ul class="nav justify-content-end">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fa fa-shopping-cart"></i> Cart (0)
+                            <a class="nav-link" href="{{ url('cart') }}">
+                                <i class="fa fa-shopping-cart"></i> Cart (<livewire:frontend.cart.cart-count />)
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fa fa-heart"></i> Wishlist (0)
+                            <a class="nav-link" href="{{ url('readlist') }}">
+                                <i class="fa fa-book"></i> Readlist (<livewire:frontend.readlist.readlist-count />)
                             </a>
                         </li>
                         <!-- Authentication Links -->
@@ -54,7 +54,7 @@
                                     <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a></li>
                                     <li><a class="dropdown-item" href="#"><i class="fa fa-list"></i> My Orders</a>
                                     </li>
-                                    <li><a class="dropdown-item" href="#"><i class="fa fa-heart"></i> My Wishlist</a>
+                                    <li><a class="dropdown-item" href="#"><i class="fa fa-book"></i> My Readlist</a>
                                     </li>
                                     <li><a class="dropdown-item" href="#"><i class="fa fa-shopping-cart"></i> My
                                             Cart</a></li>
