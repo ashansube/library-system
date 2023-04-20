@@ -29,7 +29,11 @@ Route::get('/collections/{category_slug}/{book_slug}', [App\Http\Controllers\Fro
 Route::middleware(['auth'])->group(function (){
     Route::get('cart', [App\Http\Controllers\Frontend\CartController::class, 'index']);
     Route::get('readlist', [App\Http\Controllers\Frontend\ReadlistController::class, 'index']);
+    Route::get('checkout', [App\Http\Controllers\Frontend\CheckoutController::class, 'index']);
+    Route::get('checkoutreadlist', [App\Http\Controllers\Frontend\CheckoutReadlistController::class, 'index']);
 });
+
+Route::get('thank-you', [App\Http\Controllers\Frontend\FrontendController::class, 'thankyou']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

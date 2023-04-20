@@ -99,7 +99,7 @@
                             <span class="float-end">Rs. {{ $shippingFee + $serviceCharge }}</span>
                         </h4>
                         <hr>
-                        <a href="{{ url('/checkout') }}" class="btn btn-warning w-100">Checkout</a>
+                        <a href="{{ url('/checkoutreadlist') }}" class="btn btn-warning w-100">Checkout</a>
                     </div>
                 </div>
             </div>
