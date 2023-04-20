@@ -31,11 +31,24 @@ Route::middleware(['auth'])->group(function (){
     Route::get('readlist', [App\Http\Controllers\Frontend\ReadlistController::class, 'index']);
     Route::get('checkout', [App\Http\Controllers\Frontend\CheckoutController::class, 'index']);
     Route::get('checkoutreadlist', [App\Http\Controllers\Frontend\CheckoutReadlistController::class, 'index']);
+
+    // Orders
+    //Cart Orders
+    Route::get('cartorders', [App\Http\Controllers\Frontend\CartOrderController::class, 'index']);
+    Route::get('cartorders/{cartorderId}', [App\Http\Controllers\Frontend\CartOrderController::class, 'show']);
+
+    //Readlist Orders
+    Route::get('readlistorders', [App\Http\Controllers\Frontend\ReadlistOrderController::class, 'index']);
+    Route::get('readlistorders/{readlistorderId}', [App\Http\Controllers\Frontend\ReadlistOrderController::class, 'show']);
 });
 
 Route::get('thank-you', [App\Http\Controllers\Frontend\FrontendController::class, 'thankyou']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+// Admin Routes
 
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
@@ -77,4 +90,20 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
 
     //Users Routes
     Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index']);
+
+    //Orders Routes
+    // Cart Order Routes
+    Route::controller(App\Http\Controllers\Admin\CartOrderController::class)->group(function () {
+        Route::get('/cartorders', 'index');
+        Route::get('/cartorders/{cartorderId}', 'show');
+        Route::put('/cartorders/{cartorderId}', 'updateOrderStatus');
+    });
+
+     // Read List Order Routes
+    Route::controller(App\Http\Controllers\Admin\ReadlistOrderController::class)->group(function () {
+        Route::get('/readlistorders', 'index');
+        Route::get('/readlistorders/{readlistorderId}', 'show');
+        Route::put('/readlistorders/{readlistorderId}', 'updateOrderStatus');
+    });
+
 });

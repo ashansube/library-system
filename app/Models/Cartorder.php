@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Cartorderitem;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Cartorder extends Model
 {
@@ -23,4 +25,14 @@ class Cartorder extends Model
         'payment_mode',
         'payment_id'
     ];
+
+    /**
+     * Get all of the cart order for the Cartorder
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function cartorderItems(): HasMany
+    {
+        return $this->hasMany(Cartorderitem::class, 'order_id', 'id');
+    }
 }

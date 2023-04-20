@@ -52,11 +52,11 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a></li>
-                                    <li><a class="dropdown-item" href="#"><i class="fa fa-list"></i> My Orders</a>
+                                    <li><a class="dropdown-item" href="{{ url('/cartorders') }}"><i class="fa fa-list"></i> My Orders</a>
                                     </li>
-                                    <li><a class="dropdown-item" href="#"><i class="fa fa-book"></i> My Readlist</a>
+                                    <li><a class="dropdown-item" href="{{ url('/readlistorders') }}"><i class="fa fa-book"></i> My Readlist Orders</a>
                                     </li>
-                                    <li><a class="dropdown-item" href="#"><i class="fa fa-shopping-cart"></i> My
+                                    <li><a class="dropdown-item" href="{{ url('/cart') }}"><i class="fa fa-shopping-cart"></i> My
                                             Cart</a></li>
                                     <li>
                                         <a class="dropdown-item" href="{{ route('logout') }}"

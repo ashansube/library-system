@@ -6,10 +6,16 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
-        <li class="nav-item {{ Request::is('admin/orders') ? 'active' : '' }}">
-            <a class="nav-link" href="pages/forms/basic_elements.html">
+        <li class="nav-item {{ Request::is('admin/cartorders') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url('admin/cartorders') }}">
                 <i class="mdi mdi-shopping menu-icon"></i>
-                <span class="menu-title">Orders</span>
+                <span class="menu-title">Book Stall Orders</span>
+            </a>
+        </li>
+        <li class="nav-item {{ Request::is('admin/readlistorders') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url('admin/readlistorders') }}">
+                <i class="mdi mdi-book-multiple menu-icon"></i>
+                <span class="menu-title">Read List Orders</span>
             </a>
         </li>
         <li class="nav-item {{ Request::is('admin/category*') ? 'active' : '' }}">

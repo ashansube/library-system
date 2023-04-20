@@ -39,7 +39,9 @@
                             <div class="col-md-6 mb-3">
                                 <label class="mb-1">Image</label><br>
                                 <input type="file" name="image" class="form-control" />
-                                <img class="mt-2 rounded img-thumbnail" src="{{ asset('/uploads/category/' . $category->image) }}" width="60px"
+                                {{-- <img class="mt-2 rounded img-thumbnail" src="{{ asset('/uploads/category/' $category->image) }}" width="60px"
+                                    height="60px" /> --}}
+                                <img class="mt-2 rounded img-thumbnail" src="{{ asset($category->image) }}" width="60px"
                                     height="60px" />
                                 @error('image')
                                     <small class="text-danger">{{ $message }}</small>
