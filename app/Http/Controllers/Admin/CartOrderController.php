@@ -6,6 +6,7 @@ use App\Models\Cartorder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CartOrderController extends Controller
 {
@@ -50,5 +51,22 @@ class CartOrderController extends Controller
         }else{
             return redirect('admin/cartorders/'.$cartorderId)->with('message', 'No Order Found');
         }
+    }
+
+    public function viewInvoice(int $cartorderId)
+    {
+        $cartorder = Cartorder::findOrFail($cartorderId);
+        return view('admin.cartinvoice.generate-invoice', compact('cartorder'));
+    }
+
+    public function generateInvoice(int $cartorderId)
+    {
+        $cartorder = Cartorder::findOrFail($cartorderId);
+        $data = ['cartorder' => $cartorder];
+
+        $pdf = Pdf::loadView('admin.cartinvoice.generate-invoice', $data);
+
+        $todayDate = Carbon::now()->format('Y-m-d');
+        return $pdf->download('bookstall-invoice-'.$cartorder->id.'-'.$todayDate.'.pdf');
     }
 }

@@ -22,6 +22,8 @@
                     <h4 class="text-primary">
                         <i class="mdi mdi-book-multiple text-dark me-2"></i> My Read List Order Details
                         <a href="{{ url('admin/readlistorders') }}" class="btn btn-danger btn-sm float-end text-light">Back</a>
+                        <a href="{{ url('admin/readlistinvoice/'.$readlistorder->id.'/generate') }}" class="btn btn-dark btn-sm float-end text-light mx-1">Download Invoice</a>
+                        <a href="{{ url('admin/readlistinvoice/'.$readlistorder->id) }}" target="_blank" class="btn btn-primary btn-sm float-end text-light mx-1">View Invoice</a>
                     </h4>
                     <hr>
 

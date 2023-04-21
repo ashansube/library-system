@@ -20,11 +20,16 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
+Route::controller(App\Http\Controllers\Frontend\FrontendController::class)->group(function () {
 
-Route::get('/', [App\Http\Controllers\Frontend\FrontendController::class, 'index']);
-Route::get('/collections', [App\Http\Controllers\Frontend\FrontendController::class, 'categories']);
-Route::get('/collections/{category_slug}', [App\Http\Controllers\Frontend\FrontendController::class, 'books']);
-Route::get('/collections/{category_slug}/{book_slug}', [App\Http\Controllers\Frontend\FrontendController::class, 'bookView']);
+    Route::get('/','index');
+    Route::get('/collections', 'categories');
+    Route::get('/collections/{category_slug}', 'books');
+    Route::get('/collections/{category_slug}/{book_slug}', 'bookView');
+    Route::get('/new-arrivals', 'newArrival');
+    Route::get('/featured-books', 'featuredBooks');
+
+});
 
 Route::middleware(['auth'])->group(function (){
     Route::get('cart', [App\Http\Controllers\Frontend\CartController::class, 'index']);
@@ -44,7 +49,7 @@ Route::middleware(['auth'])->group(function (){
 
 Route::get('thank-you', [App\Http\Controllers\Frontend\FrontendController::class, 'thankyou']);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 
@@ -97,6 +102,10 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/cartorders', 'index');
         Route::get('/cartorders/{cartorderId}', 'show');
         Route::put('/cartorders/{cartorderId}', 'updateOrderStatus');
+
+        //Generate Invoice Cart Orders
+        Route::get('/cartinvoice/{cartorderId}', 'viewInvoice');
+        Route::get('/cartinvoice/{cartorderId}/generate', 'generateInvoice');
     });
 
      // Read List Order Routes
@@ -104,6 +113,10 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/readlistorders', 'index');
         Route::get('/readlistorders/{readlistorderId}', 'show');
         Route::put('/readlistorders/{readlistorderId}', 'updateOrderStatus');
+
+        //Generate Invoice Read List Orders (Libraray Invoice)
+        Route::get('/readlistinvoice/{readlistorderId}', 'viewInvoice');
+        Route::get('/readlistinvoice/{readlistorderId}/generate', 'generateInvoice');
     });
 
 });

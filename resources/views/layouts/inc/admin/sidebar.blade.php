@@ -83,11 +83,5 @@
                 <span class="menu-title">Home Slider</span>
             </a>
         </li>
-        <li class="nav-item {{ Request::is('admin/settings') ? 'active' : '' }}">
-            <a class="nav-link" href="pages/charts/chartjs.html">
-                <i class="mdi mdi-settings menu-icon"></i>
-                <span class="menu-title">Site Settings</span>
-            </a>
-        </li>
     </ul>
 </nav>

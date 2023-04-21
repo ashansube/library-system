@@ -99,13 +99,7 @@
                         <a class="nav-link" href="{{ url('/new-arrivals') }}">New Arrivals</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Featured Books</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Publishers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Book Stall</a>
+                        <a class="nav-link" href="{{ url('/featured-books') }}">Featured Books</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contact Us</a>

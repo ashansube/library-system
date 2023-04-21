@@ -21,7 +21,9 @@
 
                     <h4 class="text-primary">
                         <i class="mdi mdi-shopping text-dark me-2"></i> My Order Details
-                        <a href="{{ url('admin/cartorders') }}" class="btn btn-danger btn-sm float-end text-light">Back</a>
+                        <a href="{{ url('admin/cartorders') }}" class="btn btn-danger btn-sm float-end text-light mx-1">Back</a>
+                        <a href="{{ url('admin/cartinvoice/'.$cartorder->id.'/generate') }}" class="btn btn-dark btn-sm float-end text-light mx-1">Download Invoice</a>
+                        <a href="{{ url('admin/cartinvoice/'.$cartorder->id) }}" target="_blank" class="btn btn-primary btn-sm float-end text-light mx-1">View Invoice</a>
                     </h4>
                     <hr>
 

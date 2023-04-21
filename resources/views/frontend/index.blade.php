@@ -8,7 +8,7 @@
         <div class="carousel-inner">
 
             @foreach ($sliders as $key => $sliderItem)
-                <div class="carousel-item {{ $key == 0 ? 'active':'' }}">
+                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                     @if ($sliderItem->image)
                         <img src="{{ asset("$sliderItem->image") }}" class="d-block w-100" alt="...">
                     @endif
@@ -41,5 +41,100 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+
+    <div class="py-5 bg-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <h4>Welcome to Middeniya P. Library Online</h4>
+                    <div class="underline mx-auto"></div>
+                    <p>
+                        Welcome to the Middeniya Public Library Online Platform! We are excited to offer a wide range of
+                        books and resources to our patrons, all available at your fingertips. Whether you're a student,
+                        a book lover, or just looking for something new to read, we have something for everyone. Thank you
+                        for visiting our site, and we hope you enjoy your experience with us!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Trending Books</h4>
+                    <div class="underline mb-4"></div>
+                </div>
+                @if ($trendingBooks)
+                    <div class="col-md-12">
+                        <div class="owl-carousel owl-theme trending-book">
+                            @foreach ($trendingBooks as $bookItem)
+                                <div class="item">
+                                    <div class="product-card">
+                                        <div class="product-card-img">
+                                            <label class="stock bg-danger">New</label>
+
+                                            @if ($bookItem->bookImages->count() > 0)
+                                                <a
+                                                    href="{{ url('/collections/' . $bookItem->category->slug . '/' . $bookItem->slug) }}">
+                                                    <img src="{{ asset($bookItem->bookImages[0]->image) }}"
+                                                        alt="{{ $bookItem->name }}">
+                                                </a>
+                                            @endif
+                                        </div>
+                                        <div class="product-card-body">
+                                            <p class="product-brand">{{ $bookItem->publisher }}</p>
+                                            <h5 class="product-name">
+                                                <a class="carditem-book-name"
+                                                    href="{{ url('/collections/' . $bookItem->category->slug . '/' . $bookItem->slug) }}">
+                                                    {{ $bookItem->name }}
+                                                </a>
+                                            </h5>
+                                            <p class="product-brand mb-3">By {{ $bookItem->author }}</p>
+                                            <div>
+                                                <span class="selling-price">Rs. {{ $bookItem->selling_price }}</span>
+                                                <span class="original-price">Rs. {{ $bookItem->original_price }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                    </div>
+                @else
+                    <div class="col-md-12">
+                        <div class="p-2">
+                            <h4>No Trending Books Available</h4>
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
+@endsection
+
+@section('script')
+
+    <script>
+        $('.trending-book').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 4
+                }
+            }
+        })
+    </script>
 
 @endsection

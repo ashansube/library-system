@@ -2,11 +2,15 @@
 
 @section('content')
     <div class="py-3 py-md-4">
-        <div class="container">
+        <div class="container mb-5">
             <div class="row justify-content-center">
                 <div class="col-md-8">
+                    <div class="col-md-12 mt-4">
+                        <h4>Register</h4>
+                        <div class="underline mb-4"></div>
+                    </div>
                     <div class="card">
-                        <div class="card-header">{{ __('Register') }}</div>
+                        <div class="card-header text-light" style="background-color: #90b1e5;" >{{ __('Register') }}</div>
 
                         <div class="card-body">
                             <form method="POST" action="{{ route('register') }}">
@@ -75,7 +79,7 @@
 
                                 <div class="row mb-0">
                                     <div class="col-md-6 offset-md-4">
-                                        <button type="submit" class="btn btn-primary">
+                                        <button type="submit" class="btn btn-primary" style="background-color: #90b1e5; border-color:#90b1e5;">
                                             {{ __('Register') }}
                                         </button>
                                     </div>
