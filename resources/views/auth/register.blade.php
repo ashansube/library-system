@@ -6,7 +6,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="col-md-12 mt-4">
-                        <h4>Register</h4>
+                        <h4>User Register</h4>
                         <div class="underline mb-4"></div>
                     </div>
                     <div class="card">
@@ -43,6 +43,23 @@
                                             value="{{ old('email') }}" required autocomplete="email">
 
                                         @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="phone"
+                                        class="col-md-4 col-form-label text-md-end">{{ __('Phone') }}</label>
+
+                                    <div class="col-md-6">
+                                        <input id="phone" type="text"
+                                            class="form-control @error('phone') is-invalid @enderror" name="phone"
+                                            value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+
+                                        @error('phone')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

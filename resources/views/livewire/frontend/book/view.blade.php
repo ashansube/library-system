@@ -12,15 +12,16 @@
                                     <div class="exzoom_img_box">
                                         <ul class='exzoom_img_ul'>
                                             @foreach ($book->bookImages as $itemImg)
-                                                <li><img src="{{ asset($itemImg->image) }}"/></li>
+                                                <li><img src="{{ asset($itemImg->image) }}" /></li>
                                             @endforeach
                                         </ul>
                                     </div>
 
                                     <div class="exzoom_nav"></div>
                                     <p class="exzoom_btn">
-                                        <a href="javascript:void(0);" class="exzoom_prev_btn"> < </a>
-                                        <a href="javascript:void(0);" class="exzoom_next_btn"> > </a>
+                                        <a href="javascript:void(0);" class="exzoom_prev_btn">
+                                            < </a>
+                                                <a href="javascript:void(0);" class="exzoom_next_btn"> > </a>
                                     </p>
                                 </div>
                             @else
@@ -103,26 +104,94 @@
             </div>
         </div>
     </div>
+
+    <div class="py-3 py-md-5 bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <h4>Related Books</h4>
+                    <div class="underline mb-4"></div>
+                </div>
+                <div class="col-md-12">
+                    @if ($category)
+                        <div class="owl-carousel owl-theme four-carousel">
+                            @foreach ($category->relatedBooks as $relatedBookItem)
+                                <div class="item">
+                                    <div class="product-card">
+                                        <div class="product-card-img">
+                                            @if ($relatedBookItem->bookImages->count() > 0)
+                                                <a
+                                                    href="{{ url('/collections/' . $relatedBookItem->category->slug . '/' . $relatedBookItem->slug) }}">
+                                                    <img src="{{ asset($relatedBookItem->bookImages[0]->image) }}"
+                                                        alt="{{ $relatedBookItem->name }}">
+                                                </a>
+                                            @endif
+                                        </div>
+                                        <div class="product-card-body">
+                                            <p class="product-brand">{{ $relatedBookItem->publisher }}</p>
+                                            <h5 class="product-name">
+                                                <a class="carditem-book-name"
+                                                    href="{{ url('/collections/' . $relatedBookItem->category->slug . '/' . $relatedBookItem->slug) }}">
+                                                    {{ $relatedBookItem->name }}
+                                                </a>
+                                            </h5>
+                                            <p class="product-brand mb-3">By {{ $relatedBookItem->author }}</p>
+                                            <div>
+                                                <span class="selling-price">Rs.
+                                                    {{ $relatedBookItem->selling_price }}</span>
+                                                <span class="original-price">Rs.
+                                                    {{ $relatedBookItem->original_price }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="p-2">
+                            <h4>No Related Books Available</h4>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 
 @push('scripts')
+    <script>
+        $(function() {
 
-<script>
-    $(function(){
+            $("#exzoom").exzoom({
 
-        $("#exzoom").exzoom({
+                "navWidth": 60,
+                "navHeight": 60,
+                "navItemNum": 5,
+                "navItemMargin": 7,
+                "navBorder": 1,
+                "autoPlay": false,
+                "autoPlayTimeout": 2000
+            });
 
-            "navWidth": 60,
-            "navHeight": 60,
-            "navItemNum": 5,
-            "navItemMargin": 7,
-            "navBorder": 1,
-            "autoPlay": false,
-            "autoPlayTimeout": 2000
         });
 
-    });
-</script>
-
+        $('.four-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 4
+                }
+            }
+        });
+    </script>
 @endpush

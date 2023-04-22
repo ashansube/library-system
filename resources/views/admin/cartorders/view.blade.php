@@ -24,6 +24,7 @@
                         <a href="{{ url('admin/cartorders') }}" class="btn btn-danger btn-sm float-end text-light mx-1">Back</a>
                         <a href="{{ url('admin/cartinvoice/'.$cartorder->id.'/generate') }}" class="btn btn-dark btn-sm float-end text-light mx-1">Download Invoice</a>
                         <a href="{{ url('admin/cartinvoice/'.$cartorder->id) }}" target="_blank" class="btn btn-primary btn-sm float-end text-light mx-1">View Invoice</a>
+                        <a href="{{ url('admin/cartinvoice/'.$cartorder->id.'/cartmail') }}" class="btn btn-warning btn-sm float-end text-dark mx-1">Send Invoice Via Mail</a>
                     </h4>
                     <hr>
 
@@ -123,11 +124,12 @@
                                 <div class="input-group">
                                     <select name="cartorder_status" class="form-select">
                                         <option value="">Select Order Status</option>
-                                        <option value="In Progress" {{ Request::get('status') == 'in progress' ? 'selected':'' }}>In Progress</option>
-                                        <option value="Completed" {{ Request::get('status') == 'completed' ? 'selected':'' }}>Completed</option>
                                         <option value="Pending" {{ Request::get('status') == 'pending' ? 'selected':'' }}>Pending</option>
-                                        <option value="Cancelled" {{ Request::get('status') == 'cancelled' ? 'selected':'' }}>Cancelled</option>
+                                        <option value="In Progress" {{ Request::get('status') == 'in progress' ? 'selected':'' }}>In Progress</option>
                                         <option value="Out for Delivery" {{ Request::get('status') == 'out for delivery' ? 'selected':'' }}>Out for Delivery</option>
+                                        <option value="Delivered" {{ Request::get('status') == 'delivered' ? 'selected':'' }}>Delivered</option>
+                                        <option value="Completed" {{ Request::get('status') == 'completed' ? 'selected':'' }}>Completed</option>
+                                        <option value="Cancelled" {{ Request::get('status') == 'cancelled' ? 'selected':'' }}>Cancelled</option>
                                     </select>
                                     <button type="submit" class="btn btn-primary text-white">Update</button>
                                 </div>

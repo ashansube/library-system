@@ -8,7 +8,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h4 class="mb-4">All Categories</h4>
+                    <h4>All Categories</h4>
+                    <div class="underline mb-5"></div>
                 </div>
 
                 @forelse ($categories as $categoryItem)

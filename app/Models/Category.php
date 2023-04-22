@@ -29,6 +29,11 @@ class Category extends Model
         return $this->hasMany(Book::class, 'category_id', 'id');
     }
 
+    public function relatedBooks()
+    {
+        return $this->hasMany(Book::class, 'category_id', 'id')->latest()->take(8);
+    }
+
     public function publishers()
     {
         return $this->hasMany(Publisher::class, 'category_id', 'id')->where('status', '0');

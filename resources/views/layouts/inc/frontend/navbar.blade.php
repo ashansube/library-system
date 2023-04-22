@@ -9,9 +9,9 @@
                     </a> --}}
                 </div>
                 <div class="col-md-5 my-auto">
-                    <form role="search">
+                    <form action="{{ url('search') }}" method="GET" role="search">
                         <div class="input-group">
-                            <input type="search" placeholder="Search Books..." class="form-control" />
+                            <input type="search" name="search" value="{{ Request::get('search') }}" placeholder="Search Books..." class="form-control" />
                             <button class="btn bg-white" type="submit">
                                 <i class="fa fa-search"></i>
                             </button>
@@ -51,7 +51,7 @@
                                     <i class="fa fa-user"></i> {{ Auth::user()->name }}
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('/profile') }}"><i class="fa fa-user"></i> Profile</a></li>
                                     <li><a class="dropdown-item" href="{{ url('/cartorders') }}"><i class="fa fa-list"></i> My Orders</a>
                                     </li>
                                     <li><a class="dropdown-item" href="{{ url('/readlistorders') }}"><i class="fa fa-book"></i> My Readlist Orders</a>

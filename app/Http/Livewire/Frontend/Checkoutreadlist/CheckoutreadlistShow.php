@@ -8,6 +8,8 @@ use App\Models\Readlist;
 use Illuminate\Support\Str;
 use App\Models\Readlistorder;
 use App\Models\Readlistorderitem;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PlaceReadlistOrderMailable;
 
 class CheckoutreadlistShow extends Component
 {
@@ -41,7 +43,7 @@ class CheckoutreadlistShow extends Component
             'phone' => $this->phone,
             'postelcode' => $this->postelcode,
             'address' => $this->address,
-            'status_message' => 'In Progress',
+            'status_message' => 'Pending',
             'payment_mode' => $this->payment_mode,
             'payment_id' => $this->payment_id,
             'expected_return_date' => $this->expectedReturnDate
@@ -66,6 +68,14 @@ class CheckoutreadlistShow extends Component
         $codOrder = $this->placeOrder();
         if($codOrder){
             Readlist::where('user_id', auth()->user()->id)->delete();
+
+            try {
+                $readlistorder = Readlistorder::findOrFail($codOrder->id);
+                Mail::to("$readlistorder->email")->send(new PlaceReadlistOrderMailable($readlistorder));
+                // Mail sent successfully
+            } catch (\Exception $e) {
+                return redirect('checkoutreadlist')->with('message','Something Went Wrong');
+            }
 
             session()->flash('message', 'Order Placed Successfully');
             $this->dispatchBrowserEvent('message', [
@@ -97,6 +107,9 @@ class CheckoutreadlistShow extends Component
     {
         $this->fullname = auth()->user()->name;
         $this->email = auth()->user()->email;
+        $this->phone = auth()->user()->phone;
+        $this->postelcode = auth()->user()->UserDetail->postel_code;
+        $this->address = auth()->user()->UserDetail->address;
 
         $this->totalShippingAmount = $this->totalShippingAmount();
         return view('livewire.frontend.checkoutreadlist.checkoutreadlist-show', [

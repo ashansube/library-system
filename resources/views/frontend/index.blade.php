@@ -42,7 +42,7 @@
         </button>
     </div>
 
-    <div class="py-5 bg-white">
+    <div class="py-5 bg-light">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center">
@@ -68,12 +68,12 @@
                 </div>
                 @if ($trendingBooks)
                     <div class="col-md-12">
-                        <div class="owl-carousel owl-theme trending-book">
+                        <div class="owl-carousel owl-theme four-carousel">
                             @foreach ($trendingBooks as $bookItem)
                                 <div class="item">
                                     <div class="product-card">
                                         <div class="product-card-img">
-                                            <label class="stock bg-danger">New</label>
+                                            <label class="stock bg-primary">Trending</label>
 
                                             @if ($bookItem->bookImages->count() > 0)
                                                 <a
@@ -114,12 +114,127 @@
         </div>
     </div>
 
+    <div class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>New Arrivals
+                        <a href="{{ url('new-arrivals') }}" class="btn btn-sm btn-secondary float-end">View All</a>
+                    </h4>
+                    <div class="underline mb-4"></div>
+                </div>
+                @if ($newArrivalsBooks)
+                    <div class="col-md-12">
+                        <div class="owl-carousel owl-theme four-carousel">
+                            @foreach ($newArrivalsBooks as $bookItem)
+                                <div class="item">
+                                    <div class="product-card">
+                                        <div class="product-card-img">
+                                            <label class="stock bg-danger">New</label>
+
+                                            @if ($bookItem->bookImages->count() > 0)
+                                                <a
+                                                    href="{{ url('/collections/' . $bookItem->category->slug . '/' . $bookItem->slug) }}">
+                                                    <img src="{{ asset($bookItem->bookImages[0]->image) }}"
+                                                        alt="{{ $bookItem->name }}">
+                                                </a>
+                                            @endif
+                                        </div>
+                                        <div class="product-card-body">
+                                            <p class="product-brand">{{ $bookItem->publisher }}</p>
+                                            <h5 class="product-name">
+                                                <a class="carditem-book-name"
+                                                    href="{{ url('/collections/' . $bookItem->category->slug . '/' . $bookItem->slug) }}">
+                                                    {{ $bookItem->name }}
+                                                </a>
+                                            </h5>
+                                            <p class="product-brand mb-3">By {{ $bookItem->author }}</p>
+                                            <div>
+                                                <span class="selling-price">Rs. {{ $bookItem->selling_price }}</span>
+                                                <span class="original-price">Rs. {{ $bookItem->original_price }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                    </div>
+                @else
+                    <div class="col-md-12">
+                        <div class="p-2">
+                            <h4>No New Arrivals Available</h4>
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
+    <div class="py-5 bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Featured Books
+                        <a href="{{ url('featured-books') }}" class="btn btn-sm btn-secondary float-end">View All</a>
+                    </h4>
+                    <div class="underline mb-4"></div>
+                </div>
+                @if ($featuredBooks)
+                    <div class="col-md-12">
+                        <div class="owl-carousel owl-theme four-carousel">
+                            @foreach ($featuredBooks as $bookItem)
+                                <div class="item">
+                                    <div class="product-card">
+                                        <div class="product-card-img">
+                                            <label class="stock bg-success">Featured</label>
+
+                                            @if ($bookItem->bookImages->count() > 0)
+                                                <a
+                                                    href="{{ url('/collections/' . $bookItem->category->slug . '/' . $bookItem->slug) }}">
+                                                    <img src="{{ asset($bookItem->bookImages[0]->image) }}"
+                                                        alt="{{ $bookItem->name }}">
+                                                </a>
+                                            @endif
+                                        </div>
+                                        <div class="product-card-body">
+                                            <p class="product-brand">{{ $bookItem->publisher }}</p>
+                                            <h5 class="product-name">
+                                                <a class="carditem-book-name"
+                                                    href="{{ url('/collections/' . $bookItem->category->slug . '/' . $bookItem->slug) }}">
+                                                    {{ $bookItem->name }}
+                                                </a>
+                                            </h5>
+                                            <p class="product-brand mb-3">By {{ $bookItem->author }}</p>
+                                            <div>
+                                                <span class="selling-price">Rs. {{ $bookItem->selling_price }}</span>
+                                                <span class="original-price">Rs. {{ $bookItem->original_price }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                    </div>
+                @else
+                    <div class="col-md-12">
+                        <div class="p-2">
+                            <h4>No Featured Books Available</h4>
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
+
 @endsection
 
 @section('script')
 
     <script>
-        $('.trending-book').owlCarousel({
+        $('.four-carousel').owlCarousel({
             loop: true,
             margin: 10,
             nav: true,

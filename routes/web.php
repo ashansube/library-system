@@ -29,6 +29,8 @@ Route::controller(App\Http\Controllers\Frontend\FrontendController::class)->grou
     Route::get('/new-arrivals', 'newArrival');
     Route::get('/featured-books', 'featuredBooks');
 
+    Route::get('search', 'searchBooks');
+
 });
 
 Route::middleware(['auth'])->group(function (){
@@ -45,6 +47,13 @@ Route::middleware(['auth'])->group(function (){
     //Readlist Orders
     Route::get('readlistorders', [App\Http\Controllers\Frontend\ReadlistOrderController::class, 'index']);
     Route::get('readlistorders/{readlistorderId}', [App\Http\Controllers\Frontend\ReadlistOrderController::class, 'show']);
+
+    //User Profile Routes
+    Route::get('profile', [App\Http\Controllers\Frontend\UserController::class, 'index']);
+    Route::post('profile', [App\Http\Controllers\Frontend\UserController::class, 'updateUserDetails']);
+    //Change Password
+    Route::get('change-password', [App\Http\Controllers\Frontend\UserController::class, 'passwordCreate']);
+    Route::post('change-password', [App\Http\Controllers\Frontend\UserController::class, 'changePassword']);
 });
 
 Route::get('thank-you', [App\Http\Controllers\Frontend\FrontendController::class, 'thankyou']);
@@ -94,7 +103,14 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/publishers', App\Http\Livewire\Admin\Publisher\Index::class);
 
     //Users Routes
-    Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index']);
+    Route::controller(App\Http\Controllers\Admin\UserController::class)->group(function () {
+        Route::get('/users', 'index');
+        Route::get('/users/create', 'create');
+        Route::post('/users', 'store');
+        Route::get('/users/{userId}/edit', 'edit');
+        Route::put('users/{userId}', 'update');
+        Route::get('users/{userId}/delete', 'destroy');
+    });
 
     //Orders Routes
     // Cart Order Routes
@@ -106,6 +122,8 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         //Generate Invoice Cart Orders
         Route::get('/cartinvoice/{cartorderId}', 'viewInvoice');
         Route::get('/cartinvoice/{cartorderId}/generate', 'generateInvoice');
+        //Send Cart Invoice Mail
+        Route::get('/cartinvoice/{cartorderId}/cartmail', 'mailInvoice');
     });
 
      // Read List Order Routes

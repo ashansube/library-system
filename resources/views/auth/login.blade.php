@@ -6,7 +6,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="col-md-12 mt-4">
-                        <h4>Login</h4>
+                        <h4>User Login</h4>
                         <div class="underline mb-4"></div>
                     </div>
                     <div class="card mb-5">

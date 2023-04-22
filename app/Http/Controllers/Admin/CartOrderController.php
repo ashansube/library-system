@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Cartorder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use App\Http\Controllers\Controller;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Mail\InvoiceOrderMailable;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class CartOrderController extends Controller
 {
@@ -69,4 +71,17 @@ class CartOrderController extends Controller
         $todayDate = Carbon::now()->format('Y-m-d');
         return $pdf->download('bookstall-invoice-'.$cartorder->id.'-'.$todayDate.'.pdf');
     }
+
+    public function mailInvoice(int $cartorderId)
+    {
+        try {
+            $cartorder = Cartorder::findOrFail($cartorderId);
+
+            Mail::to("$cartorder->email")->send(new InvoiceOrderMailable($cartorder));
+            return redirect('admin/cartorders/'.$cartorderId)->with('message','Invoice Mail has been sent to '.$cartorder->email);
+        } catch (\Exception $e) {
+            return redirect('admin/cartorders/'.$cartorderId)->with('message','Something Went Wrong');
+        }
+    }
+
 }

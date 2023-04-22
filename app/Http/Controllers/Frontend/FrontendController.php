@@ -13,8 +13,20 @@ class FrontendController extends Controller
     public function index()
     {
         $sliders = Slider::where('status', '0')->get();
-        $trendingBooks = Book::where('trending','1')->latest()->take(15)->get();
-        return view('frontend.index', compact('sliders', 'trendingBooks'));
+        $trendingBooks = Book::where('trending','1')->latest()->take(14)->get();
+        $newArrivalsBooks = Book::latest()->take(14)->get();
+        $featuredBooks = Book::where('featured','1')->latest()->take(14)->get();
+        return view('frontend.index', compact('sliders', 'trendingBooks', 'newArrivalsBooks', 'featuredBooks'));
+    }
+
+    public function searchBooks(Request $request)
+    {
+        if($request->search){
+            $searchBooks = Book::where('name','LIKE','%'.$request->search.'%')->latest()->paginate(15);
+            return view('frontend.pages.search', compact('searchBooks'));
+        }else{
+            return redirect()->back()->with('message', 'Empty Search');
+        }
     }
 
     public function newArrival()

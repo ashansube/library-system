@@ -15,7 +15,7 @@
         <li class="nav-item {{ Request::is('admin/readlistorders') ? 'active' : '' }}">
             <a class="nav-link" href="{{ url('admin/readlistorders') }}">
                 <i class="mdi mdi-book-multiple menu-icon"></i>
-                <span class="menu-title">Read List Orders</span>
+                <span class="menu-title">Read List (Library) Orders</span>
             </a>
         </li>
         <li class="nav-item {{ Request::is('admin/category*') ? 'active' : '' }}">

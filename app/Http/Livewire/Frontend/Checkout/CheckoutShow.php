@@ -5,8 +5,10 @@ namespace App\Http\Livewire\Frontend\Checkout;
 use App\Models\Cart;
 use Livewire\Component;
 use App\Models\Cartorder;
-use App\Models\Cartorderitem;
 use Illuminate\Support\Str;
+use App\Models\Cartorderitem;
+use App\Mail\PlaceCartOrderMailable;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutShow extends Component
 {
@@ -36,7 +38,7 @@ class CheckoutShow extends Component
             'phone' => $this->phone,
             'postelcode' => $this->postelcode,
             'address' => $this->address,
-            'status_message' => 'In Progress',
+            'status_message' => 'Pending',
             'payment_mode' => $this->payment_mode,
             'payment_id' => $this->payment_id,
         ]);
@@ -62,6 +64,14 @@ class CheckoutShow extends Component
         $codOrder = $this->placeOrder();
         if($codOrder){
             Cart::where('user_id', auth()->user()->id)->delete();
+
+            try {
+                $cartorder = Cartorder::findOrFail($codOrder->id);
+                Mail::to("$cartorder->email")->send(new PlaceCartOrderMailable($cartorder));
+                // Mail sent successfully
+            } catch (\Exception $e) {
+                return redirect('checkout')->with('message','Something Went Wrong');
+            }
 
             session()->flash('message', 'Order Placed Successfully');
             $this->dispatchBrowserEvent('message', [
@@ -94,6 +104,9 @@ class CheckoutShow extends Component
     {
         $this->fullname = auth()->user()->name;
         $this->email = auth()->user()->email;
+        $this->phone = auth()->user()->phone;
+        $this->postelcode = auth()->user()->UserDetail->postel_code;
+        $this->address = auth()->user()->UserDetail->address;
 
         $this->totalBookAmount = $this->totalBookAmount();
         return view('livewire.frontend.checkout.checkout-show', [
