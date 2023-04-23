@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Vonage\Client;
 use App\Models\User;
+use Vonage\SMS\Message\SMS;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Vonage\Client\Credentials\Basic;
 
 class UserController extends Controller
 {
@@ -72,5 +75,47 @@ class UserController extends Controller
         $user->delete();
 
         return redirect('/admin/users')->with('message', 'User Deleted Successfully');
+    }
+
+    public function getSMSDeta(int $userId)
+    {
+        $user = User::findOrFail($userId);
+        return view('admin.user.send-sms', compact('user'));
+    }
+
+    public function sendSMS(Request $request)
+    {
+        $to = $request->to;
+        $text = $request->text;
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'https://rest.nexmo.com/sms/json',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'POST',
+          CURLOPT_POSTFIELDS =>'{
+            "from": "Vonage APIs",
+            "text":"'.$text.'",
+            "to" : "'.$to.'",
+            "api_key" : "'.env('VONAGE_API_KEY').'",
+            "api_secret" : "'.env('VONAGE_API_SECRET').'"
+        }',
+          CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/json'
+          ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
+
+        return redirect('/admin/users')->with('message', 'SMS Sent Successfully');
     }
 }

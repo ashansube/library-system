@@ -110,6 +110,9 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/users/{userId}/edit', 'edit');
         Route::put('users/{userId}', 'update');
         Route::get('users/{userId}/delete', 'destroy');
+        //Send SMS
+        Route::get('/users/{userId}/sendsms', 'getSMSDeta');
+        Route::post('/users/sendsms', 'sendSMS');
     });
 
     //Orders Routes
